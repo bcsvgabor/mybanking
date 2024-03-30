@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 
     @GetMapping({"/", "/home"})
-    public String homePage(@RequestParam Long userId, Model model) {
+    public String homePage(@RequestParam String username, Model model) {
 
-        if (userId == null){
+        if (username == null){
             return "redirect:/login";
         }
         return "index";
