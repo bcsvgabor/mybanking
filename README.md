@@ -20,3 +20,6 @@ Deposit the amount
 Withdraw amount
 Transfer the amount
 Close account
+
+The flow of Online Banking:
+![img.png](img.png)
