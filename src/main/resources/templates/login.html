@@ -14,7 +14,7 @@
 
         <label>Please sign in!</label>
 
-        <form th:action="@{/login}" method="post" th:object="${user}">
+        <form th:action="@{/login}" method="post" th:object="${bankUser}">
 
             <label for="username" >Username</label>
             <input required id="username" th:name="username" class="username" type="text"
