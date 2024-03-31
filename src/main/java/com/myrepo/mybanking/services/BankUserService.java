@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface BankUserService {
 
     Optional<BankUser> findById(Long id);
+
+    void saveBankUser(BankUser bankUser);
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" >
+    <head>
+        <meta charset="UTF-8">
+        <title>myBanking</title>
+    </head>
+    <body>
+        <nav>
+            <a href="/login">Login</a>
+        </nav>
+        <h1>Welcome to the Register page!</h1>
+
+        <label>Create a new Account:</label>
+
+        <form th:action="@{/register}" method="post" th:object="${bankuser}">
+
+            <label for="username" >Username</label>
+            <input required id="username" class="username" type="text"
+                   name="username"  placeholder="type your username" size="12"
+                    th:field="*{username}" >
+
+            <label for="password">Password</label>
+            <input id="password" class="password" type="password"
+                   name="password"  placeholder="type your password" size="12"
+                   th:field="*{password}">
+
+            <label for="confirmpassword">Confirm password</label>
+            <input id="confirmpassword" class="confirmpassword" type="password"
+                   name="confirmpassword"  placeholder="confirm your password" size="12"
+            th:field="*{confirmpassword}">
+
+            <div th:if="${registerError}" class="alert-warning">
+                <p th:text="${registerError}" style="color: red;"></p>
+            </div>
+
+            <input type="submit" value="Register">
+        </form>
+    </body>
+</html>

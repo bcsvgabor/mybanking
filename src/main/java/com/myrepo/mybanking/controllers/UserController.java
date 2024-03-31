@@ -1,5 +1,6 @@
 package com.myrepo.mybanking.controllers;
 
+import com.myrepo.mybanking.models.BankAccount;
 import com.myrepo.mybanking.models.BankUser;
 import com.myrepo.mybanking.services.BankUserService;
 import lombok.RequiredArgsConstructor;
@@ -28,14 +29,36 @@ public class UserController {
     public String login(@ModelAttribute BankUser bankUser, Model model) {
         Optional<BankUser> user = bankUserService.findById(bankUser.getId());
 
-        if (!user.isPresent() || !bankUser.getPassword().equals(user.get().getPassword())){
+        if (!user.isPresent() || !bankUser.getPassword().equals(user.get().getPassword())) {
             model.addAttribute("loginError", "Invalid username or password");
             return "/login";
-        } else{
+        } else {
             model.addAttribute("bankUser", user.get());
             return String.format("redirect:/?username=%s", user.get().getUsername());
         }
 
+    }
+
+    @GetMapping("/register")
+    public String registerForm(Model model) {
+        model.addAttribute("bankuser", new BankUser());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute BankUser bankUser, Model model) {
+
+        if (!bankUser.getPassword().equals(bankUser.getConfirmpassword())) {
+            model.addAttribute("registerError", "Passwords does not match.");
+            return "/register";
+        }
+
+        bankUserService.saveBankUser(bankUser);
+
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setBankUser(bankUser);
+
+        return "login";
     }
 
 }

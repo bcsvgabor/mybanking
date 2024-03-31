@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import jakarta.persistence.*;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @RequiredArgsConstructor
 @Getter
@@ -16,5 +18,9 @@ public class BankUser {
     private Long id;
     private String username;
     private String password;
+    private String confirmpassword;
     private String name;
+
+    @OneToMany
+    private Set<BankAccount> bankAccountList;
 }

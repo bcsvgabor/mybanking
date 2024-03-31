@@ -22,4 +22,9 @@ public class BankUserServiceImpl implements BankUserService {
             return bankUserRepository.findById(id);
         }
     }
+
+    @Override
+    public void saveBankUser(BankUser bankUser) {
+        bankUserRepository.save(bankUser);
+    }
 }
