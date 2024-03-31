@@ -12,12 +12,13 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BankUserServiceImpl implements BankUserService {
-    private BankUserRepository bankUserRepository;
+    private final BankUserRepository bankUserRepository;
 
     @Override
     public Optional<BankUser> findById(Long id) {
         if (id == null || id < 0) {
-            throw new NotFoundException("Id was not found.");
+//            throw new NotFoundException("Id was not found.");
+            return Optional.empty();
         } else {
             return bankUserRepository.findById(id);
         }

@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
 
-    private BankUserService bankUserService;
+    private final BankUserService bankUserService;
 
     @GetMapping("/login")
     public String loginForm(Model model) {
@@ -29,8 +29,8 @@ public class UserController {
     public String login(@ModelAttribute BankUser bankUser, Model model) {
         Optional<BankUser> user = bankUserService.findById(bankUser.getId());
 
-        if (!user.isPresent() || !bankUser.getPassword().equals(user.get().getPassword())) {
-            model.addAttribute("loginError", "Invalid username or password");
+        if (user.isEmpty() || !bankUser.getPassword().equals(user.get().getPassword())) {
+            model.addAttribute("loginError", "Invalid username or password.");
             return "/login";
         } else {
             model.addAttribute("bankUser", user.get());
@@ -58,7 +58,7 @@ public class UserController {
         BankAccount bankAccount = new BankAccount();
         bankAccount.setBankUser(bankUser);
 
-        return "login";
+        return "redirect:/login";
     }
 
 }
