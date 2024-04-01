@@ -45,4 +45,17 @@ public class BankUserServiceImpl implements BankUserService {
     }
 
 
+
+    @Override
+    public Optional<BankUser> findByUsername(BankUser bankUser) {
+
+        return bankUserRepository.findBankUserByUsername(bankUser);
+
+    }
+
+    public boolean isUserTableEmpty(){
+        return !bankUserRepository.findAll().isEmpty();
+    }
+
+
 }

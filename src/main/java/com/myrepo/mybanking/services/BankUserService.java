@@ -11,4 +11,6 @@ public interface BankUserService {
     void saveBankUser(BankUser bankUser);
 
     void hashBankUserPassword(BankUser bankUser);
+    Optional<BankUser> findByUsername(BankUser bankUser);
+    public boolean isUserTableEmpty();
 }

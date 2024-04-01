@@ -58,6 +58,11 @@ public class UserController {
             return "/register";
         }
 
+        if(bankUserService.isUserTableEmpty()){
+            model.addAttribute("registerError", "Username is already exist. Please log in.");
+            return "/register";
+        }
+
         if(!PasswordValidatorUtil.isProdPasswordValid(bankUser.getPassword())){
             model.addAttribute("registerError", "Passwords is too weak.");
             return "/register";
