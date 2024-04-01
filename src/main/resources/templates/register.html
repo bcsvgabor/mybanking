@@ -19,6 +19,11 @@
                    name="username"  placeholder="type your username" size="12"
                     th:field="*{username}" >
 
+            <label for="name">First Name and Last Name</label>
+            <input id="name" class="name" type="text"
+                   name="name"  placeholder="First and Last Name" size="12"
+                   th:field="*{name}">
+
             <label for="password">Password</label>
             <input id="password" class="password" type="password"
                    name="password"  placeholder="type your password" size="12"
@@ -28,6 +33,7 @@
             <input id="confirmpassword" class="confirmpassword" type="password"
                    name="confirmpassword"  placeholder="confirm your password" size="12"
             th:field="*{confirmpassword}">
+
 
             <div th:if="${registerError}" class="alert-warning">
                 <p th:text="${registerError}" style="color: red;"></p>
