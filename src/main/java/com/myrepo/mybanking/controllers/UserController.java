@@ -2,7 +2,9 @@ package com.myrepo.mybanking.controllers;
 
 import com.myrepo.mybanking.models.BankAccount;
 import com.myrepo.mybanking.models.BankUser;
+import com.myrepo.mybanking.services.BankAccountService;
 import com.myrepo.mybanking.services.BankUserService;
+import com.myrepo.mybanking.utils.PasswordHashUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class UserController {
 
     private final BankUserService bankUserService;
+    private final BankAccountService bankAccountService;
 
     @GetMapping("/login")
     public String loginForm(Model model) {
@@ -41,7 +44,8 @@ public class UserController {
 
     @GetMapping("/register")
     public String registerForm(Model model) {
-        model.addAttribute("bankuser", new BankUser());
+
+        model.addAttribute("bankUser", new BankUser());
         return "register";
     }
 
@@ -53,10 +57,8 @@ public class UserController {
             return "/register";
         }
 
-        bankUserService.saveBankUser(bankUser);
-
-        BankAccount bankAccount = new BankAccount();
-        bankAccount.setBankUser(bankUser);
+        bankUserService.hashBankUserPassword(bankUser);
+        bankAccountService.setupBankAccount(bankUser);
 
         return "redirect:/login";
     }

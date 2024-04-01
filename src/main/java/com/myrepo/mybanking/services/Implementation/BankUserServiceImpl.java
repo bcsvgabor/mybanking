@@ -4,6 +4,7 @@ import com.myrepo.mybanking.exceptions.NotFoundException;
 import com.myrepo.mybanking.models.BankUser;
 import com.myrepo.mybanking.repositories.BankUserRepository;
 import com.myrepo.mybanking.services.BankUserService;
+import com.myrepo.mybanking.utils.PasswordHashUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +29,20 @@ public class BankUserServiceImpl implements BankUserService {
     public void saveBankUser(BankUser bankUser) {
         bankUserRepository.save(bankUser);
     }
+
+    @Override
+    public void hashBankUserPassword(BankUser bankUser) {
+
+        String pw = bankUser.getPassword();
+
+        PasswordHashUtil passwordHashUtil = new PasswordHashUtil();
+        String hashedPw = passwordHashUtil.createHash(pw);
+
+        bankUser.setPassword(hashedPw);
+        bankUser.setConfirmpassword(hashedPw);
+
+        saveBankUser(bankUser);
+    }
+
+
 }

@@ -2,7 +2,6 @@ package com.myrepo.mybanking.models;
 
 import com.myrepo.mybanking.utils.AccountNumberGenerator;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
@@ -12,6 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class BankAccount {
 
     @Id
@@ -22,10 +22,12 @@ public class BankAccount {
     @ManyToOne
     private BankUser bankUser;
 
-    public BankAccount(){
+    public void startAccount(BankUser bankUser) {
         AccountNumberGenerator generator = new AccountNumberGenerator();
 
         this.accountNumber = generator.generateNumber(id);
+        this.accountBalance = 0;
+        this.bankUser = bankUser;
     }
 
 }
