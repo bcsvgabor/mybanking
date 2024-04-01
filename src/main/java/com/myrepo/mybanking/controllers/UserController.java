@@ -5,6 +5,7 @@ import com.myrepo.mybanking.models.BankUser;
 import com.myrepo.mybanking.services.BankAccountService;
 import com.myrepo.mybanking.services.BankUserService;
 import com.myrepo.mybanking.utils.PasswordHashUtil;
+import com.myrepo.mybanking.utils.PasswordValidatorUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,11 @@ public class UserController {
 
         if (!bankUser.getPassword().equals(bankUser.getConfirmpassword())) {
             model.addAttribute("registerError", "Passwords does not match.");
+            return "/register";
+        }
+
+        if(!PasswordValidatorUtil.isProdPasswordValid(bankUser.getPassword())){
+            model.addAttribute("registerError", "Passwords is too weak.");
             return "/register";
         }
 
