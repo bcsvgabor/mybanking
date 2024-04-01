@@ -13,12 +13,12 @@ public class PasswordHashUtil {
 //    @Value("${salt.length}")
     private int SALT_LENGTH = 10;
 
-//    @Value("${secret}")
-    private String secretCode = "secret1";
+//    @Value("${secret.code}")
+    private String SECRET_CODE = "secret1";
 
-    public PasswordEncoder getEncoder(String secretCode) {
+    public PasswordEncoder getEncoder() {
         return new Pbkdf2PasswordEncoder(
-                secretCode,
+                SECRET_CODE,
                 SALT_LENGTH,
                 ITERATIONS,
                 Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA512
@@ -26,11 +26,11 @@ public class PasswordHashUtil {
     }
 
     public String createHash(String password) {
-        return getEncoder(secretCode).encode(password);
+        return getEncoder().encode(password);
     }
 
-    public boolean verifyHash(String hash, String password, String secretCode) {
-        return getEncoder(secretCode).matches(
+    public boolean verifyHash(String hash, String password, String SECRET_CODE) {
+        return getEncoder().matches(
                 password,
                 hash
         );
