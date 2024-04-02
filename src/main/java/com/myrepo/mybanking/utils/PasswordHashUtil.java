@@ -29,10 +29,8 @@ public class PasswordHashUtil {
         return getEncoder().encode(password);
     }
 
-    public boolean verifyHash(String hash, String password, String SECRET_CODE) {
-        return getEncoder().matches(
-                password,
-                hash
-        );
+    public boolean verifyHash(String hash, String password) {
+
+        return getEncoder().matches(password,hash);
     }
 }

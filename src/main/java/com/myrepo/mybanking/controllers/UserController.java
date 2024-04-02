@@ -1,10 +1,8 @@
 package com.myrepo.mybanking.controllers;
 
-import com.myrepo.mybanking.models.BankAccount;
 import com.myrepo.mybanking.models.BankUser;
 import com.myrepo.mybanking.services.BankAccountService;
 import com.myrepo.mybanking.services.BankUserService;
-import com.myrepo.mybanking.utils.PasswordHashUtil;
 import com.myrepo.mybanking.utils.PasswordValidatorUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -31,14 +29,24 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute BankUser bankUser, Model model) {
-        Optional<BankUser> user = bankUserService.findById(bankUser.getId());
 
-        if (user.isEmpty() || !bankUser.getPassword().equals(user.get().getPassword())) {
-            model.addAttribute("loginError", "Invalid username or password.");
-            return "/login";
-        } else {
+        Optional<BankUser> user = bankUserService.findByUsername(bankUser.getUsername());
+
+        if (user.isPresent()) {
+
+            if (!bankUserService.validateHash(user.get(), bankUser.getPassword())) {
+
+                model.addAttribute("loginError", "Invalid password.");
+                return "/login";
+            }
+
             model.addAttribute("bankUser", user.get());
             return String.format("redirect:/?username=%s", user.get().getUsername());
+
+        } else {
+
+            model.addAttribute("loginError", "Invalid username.");
+            return "/login";
         }
 
     }
@@ -53,17 +61,26 @@ public class UserController {
     @PostMapping("/register")
     public String register(@ModelAttribute BankUser bankUser, Model model) {
 
+        if (bankUser.getPassword().isBlank()
+                || bankUser.getConfirmpassword().isBlank()
+                || bankUser.getName().isBlank()
+                || bankUser.getUsername().isBlank()) {
+
+            model.addAttribute("registerError", "Please fill out all the fields.");
+            return "/register";
+        }
+
         if (!bankUser.getPassword().equals(bankUser.getConfirmpassword())) {
             model.addAttribute("registerError", "Passwords does not match.");
             return "/register";
         }
 
-        if(bankUserService.isUserTableEmpty()){
+        if (bankUserService.isUserTableEmpty()) {
             model.addAttribute("registerError", "Username is already exist. Please log in.");
             return "/register";
         }
 
-        if(!PasswordValidatorUtil.isProdPasswordValid(bankUser.getPassword())){
+        if (!PasswordValidatorUtil.isProdPasswordValid(bankUser.getPassword())) {
             model.addAttribute("registerError", "Passwords is too weak.");
             return "/register";
         }

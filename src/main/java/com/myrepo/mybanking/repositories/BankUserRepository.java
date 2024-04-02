@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface BankUserRepository extends JpaRepository<BankUser, Long> {
     Optional<BankUser> findById(@NonNull Long id);
 
-    Optional<BankUser> findBankUserByUsername(BankUser bankUser);
+    Optional<BankUser> findByUsername(String username);
 }

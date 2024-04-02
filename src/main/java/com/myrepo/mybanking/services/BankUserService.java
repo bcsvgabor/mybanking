@@ -11,6 +11,8 @@ public interface BankUserService {
     void saveBankUser(BankUser bankUser);
 
     void hashBankUserPassword(BankUser bankUser);
-    Optional<BankUser> findByUsername(BankUser bankUser);
+    Optional<BankUser> findByUsername(String username);
     public boolean isUserTableEmpty();
+
+    boolean validateHash(BankUser bankUser, String password);
 }

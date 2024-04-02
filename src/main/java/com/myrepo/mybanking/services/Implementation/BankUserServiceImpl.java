@@ -47,14 +47,24 @@ public class BankUserServiceImpl implements BankUserService {
 
 
     @Override
-    public Optional<BankUser> findByUsername(BankUser bankUser) {
+    public Optional<BankUser> findByUsername(String username) {
 
-        return bankUserRepository.findBankUserByUsername(bankUser);
+        return bankUserRepository.findByUsername(username);
 
     }
 
     public boolean isUserTableEmpty(){
         return !bankUserRepository.findAll().isEmpty();
+    }
+
+    @Override
+    public boolean validateHash(BankUser bankUser, String password) {
+
+        String hash = bankUser.getPassword();
+
+        PasswordHashUtil pwHashUtil = new PasswordHashUtil();
+
+        return pwHashUtil.verifyHash(hash,password);
     }
 
 
