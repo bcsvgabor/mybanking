@@ -15,4 +15,6 @@ public interface BankUserService {
     public boolean isUserTableEmpty();
 
     boolean validateHash(BankUser bankUser, String password);
+
+    Integer numberOfAccounts(BankUser bankUser);
 }

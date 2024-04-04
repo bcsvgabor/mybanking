@@ -4,16 +4,31 @@
         <meta charset="UTF-8">
         <title>myBanking</title>
     </head>
-    <body>
+    <body th:object="${bankUser}">
 
         <header>
             <h1>myBanking</h1>
             <nav>
-                <a>View Balance</a>
-                <a>Deposit</a>
-                <a>Withdraw</a>
-                <a>Transfer</a>
+                <a th:href="@{'/balance'+ '?userid=' + ${bankUser.id}}">View Balance</a>
+                <a th:href="@{'/deposit'+ '?userid=' + ${bankUser.id}}">Deposit</a>
+                <a th:href="@{'/withdraw'+ '?userid=' + ${bankUser.id}}">Withdraw</a>
+                <a th:href="@{'/transfer'+ '?userid=' + ${bankUser.id}}">Transfer</a>
             </nav>
         </header>
+
+        <label for="userinfoUsername">Username</label>
+        <div id="userinfoUsername" class="userinfoUsername">
+            <p th:text="${bankUser.getUsername()}" style="color: red;">Username</p>
+        </div>
+
+        <label for="userinfoName">Name</label>
+        <div id="userinfoName" class="userinfoName">
+            <p th:text="${bankUser.getName()}" style="color: red;">Name</p>
+        </div>
+
+<!--        <label for="userinfoAccounts">Number of Accounts</label>-->
+<!--        <div id="userinfoAccounts" class="userinfo">-->
+<!--            <p th:text="${numberOfAccounts}" style="color: red;">Number of Accounts</p>-->
+<!--        </div>-->
     </body>
 </html>

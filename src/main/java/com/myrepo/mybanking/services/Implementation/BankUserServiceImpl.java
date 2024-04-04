@@ -67,5 +67,11 @@ public class BankUserServiceImpl implements BankUserService {
         return pwHashUtil.verifyHash(hash,password);
     }
 
+    @Override
+    public Integer numberOfAccounts(BankUser bankUser) {
+
+        return bankUser.getBankAccountList().size();
+    }
+
 
 }

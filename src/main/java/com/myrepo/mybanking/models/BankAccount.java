@@ -16,6 +16,7 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long accountNumber;
+    private String accountName;
     private Integer accountBalance;
 
     @ManyToOne
@@ -27,6 +28,17 @@ public class BankAccount {
         this.accountNumber = generator.generateNumber(id);
         this.accountBalance = 0;
         this.bankUser = bankUser;
+        this.accountName = "basic";
+    }
+
+    public void createAccount(BankUser bankUser, String accountName){
+
+        AccountNumberGenerator generator = new AccountNumberGenerator();
+
+        this.accountNumber = generator.generateNumber(id);
+        this.accountBalance = 0;
+        this.bankUser = bankUser;
+        this.accountName = "accountName";
     }
 
 }
