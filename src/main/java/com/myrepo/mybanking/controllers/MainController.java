@@ -17,7 +17,7 @@ public class MainController {
     @GetMapping({"/", "/home"})
     public String homePage(@ModelAttribute BankUser bankUser, Model model) {
 
-        if (bankUser == null) {
+        if (bankUser.getId() == null) {
             return "redirect:/login";
         }
         model.addAttribute("bankUser", bankUser);
