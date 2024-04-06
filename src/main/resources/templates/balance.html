@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>myBanking</title>
+    </head>
+    <body>
+        <nav>
+            <a th:href="@{'/?username=' + ${bankUser.username}}">Home</a>
+        </nav>
+
+        <h1>Balance</h1>
+
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th scope="col">Account Name</th>
+                    <th scope="col">Account Id</th>
+                    <th scope="col">Balance</th>
+                </tr>
+            </thead>
+            <tbody class="d-flex align-items-center">
+                <tr th:each="account : ${bankUser.getBankAccountList()}" class="d-flex justify-content-evenly">
+                    <td class="d-flex align-items-center">
+                        <a th:text="${account.getAccountName()}">
+                        </a>
+                    </td>
+
+                    <td th:text="${account.getAccountNumber()}" class="d-flex align-items-center"></td>
+                    <td th:text="${account.getAccountBalance()}" class="d-flex align-items-center"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>

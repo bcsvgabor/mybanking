@@ -9,10 +9,10 @@
         <header>
             <h1>myBanking</h1>
             <nav>
-                <a th:href="@{'/balance'+ '?userid=' + ${bankUser.id}}">View Balance</a>
-                <a th:href="@{'/deposit'+ '?userid=' + ${bankUser.id}}">Deposit</a>
-                <a th:href="@{'/withdraw'+ '?userid=' + ${bankUser.id}}">Withdraw</a>
-                <a th:href="@{'/transfer'+ '?userid=' + ${bankUser.id}}">Transfer</a>
+                <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}">View Balance</a>
+                <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}">Deposit</a>
+                <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}">Withdraw</a>
+                <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}">Transfer</a>
             </nav>
         </header>
 

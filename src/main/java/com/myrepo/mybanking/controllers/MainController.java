@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class MainController {
         }
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
 
-        if (bankUser.isPresent()){
+        if (bankUser.isPresent()) {
             model.addAttribute("bankUser", bankUser.get());
             return "index";
         } else {
@@ -36,7 +35,18 @@ public class MainController {
 
 //        Integer accountListSize = bankUserService.numberOfAccounts(bankUser);
 //        model.addAttribute("numberOfAccounts", accountListSize);
+    }
 
+    @GetMapping("/balance")
+    public String balancePage(@RequestParam(name = "username") String username, Model model){
 
+        Optional<BankUser> bankUser = bankUserService.findByUsername(username);
+
+        if (bankUser.isPresent()) {
+            model.addAttribute("bankUser", bankUser.get());
+            return "/balance";
+        } else {
+            throw new NotFoundException("User not found.");
+        }
     }
 }
