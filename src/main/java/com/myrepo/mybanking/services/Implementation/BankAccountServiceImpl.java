@@ -32,6 +32,15 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccount.startAccount(bankUser);
 
         bankAccountRepository.save(bankAccount);
+    }
+
+    public void createBankAccount(BankUser bankUser, String accountName) {
+
+        BankAccount bankAccount = new BankAccount();
+        bankAccountRepository.save(bankAccount);
+
+        bankAccount.createAccount(bankUser, accountName);
+        bankAccountRepository.save(bankAccount);
 
     }
 

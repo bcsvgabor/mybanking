@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" >
+    <head>
+        <meta charset="UTF-8">
+        <title>myBanking</title>
+    </head>
+    <body>
+
+        <nav>
+            <a href="/register">Create Bank Account</a>
+        </nav>
+        <h1>Create Bank Account</h1>
+
+        <label>Your new bank account`s name:</label>
+
+        <form th:action="@{'/create'+ '?username=' + ${bankUser.username}}" method="post" th:object="${bankAccount}">
+
+            <label for="accountName" >Username</label>
+            <input required id="accountName" th:name="accountName" class="accountName" type="text"
+                   name="accountName"  placeholder="type account name" size="12"
+                   th:field="*{accountName}" >
+
+            <div th:if="${loginError}" class="alert-warning">
+                <p th:text="${loginError}" style="color: red;"></p>
+            </div>
+
+            <input type="submit" value="Create">
+        </form>
+
+    </body>
+</html>

@@ -9,4 +9,6 @@ public interface BankAccountService {
 
     void setupBankAccount(BankUser bankUser);
 
+    void createBankAccount(BankUser bankUser, String accountName);
+
 }
