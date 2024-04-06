@@ -21,6 +21,6 @@ public class BankUser {
     private String confirmpassword;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "bankUser", cascade = CascadeType.ALL)
     private Set<BankAccount> bankAccountList;
 }

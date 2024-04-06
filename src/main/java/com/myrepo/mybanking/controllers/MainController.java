@@ -38,12 +38,13 @@ public class MainController {
     }
 
     @GetMapping("/balance")
-    public String balancePage(@RequestParam(name = "username") String username, Model model){
+    public String balancePage(@RequestParam(name = "username") String username, Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
 
         if (bankUser.isPresent()) {
             model.addAttribute("bankUser", bankUser.get());
+            model.addAttribute("accountList", bankUser.get().getBankAccountList());
             return "/balance";
         } else {
             throw new NotFoundException("User not found.");

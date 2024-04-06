@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody class="d-flex align-items-center">
-                <tr th:each="account : ${bankUser.getBankAccountList()}" class="d-flex justify-content-evenly">
+                <tr th:each="account : ${accountList}" class="d-flex justify-content-evenly">
                     <td class="d-flex align-items-center">
                         <a th:text="${account.getAccountName()}">
                         </a>
