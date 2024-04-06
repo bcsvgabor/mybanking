@@ -41,6 +41,7 @@ public class UserController {
             }
 
             model.addAttribute("bankUser", user.get());
+//            return "redirect:/";
             return String.format("redirect:/?username=%s", user.get().getUsername());
 
         } else {
