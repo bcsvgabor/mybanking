@@ -7,6 +7,8 @@ import com.myrepo.mybanking.services.BankAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class BankAccountServiceImpl implements BankAccountService {
@@ -42,6 +44,18 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccount.createAccount(bankUser, accountName);
         bankAccountRepository.save(bankAccount);
 
+    }
+
+    @Override
+    public void depositBankAccount(BankAccount bankAccount, Integer amount) {
+
+        bankAccount.depositAccount(amount);
+        bankAccountRepository.save(bankAccount);
+    }
+
+    @Override
+    public Optional<BankAccount> findBankAccountByName(String accountName) {
+        return bankAccountRepository.findBankAccountByAccountName(accountName);
     }
 
 }

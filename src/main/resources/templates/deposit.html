@@ -21,13 +21,13 @@
         <form th:action="@{'/deposit'+ '?username=' + ${bankUser.username}}" method="post" th:object="${bankUser}">
 
             <label for="bankAccount" >Bank Account</label>
-            <select class="" id="bankAccount" th:name="bankAccount">
+            <select class="" id="bankAccount" name="accountName">
                 <option value="">Select Bank Account</option>
-                <option th:each="account : *{bankAccountList}" th:value="${account}" th:text="${account.accountName}"></option>
+                <option th:each="account : *{bankAccountList}" th:value="${account.accountName}" th:text="${account.accountName}"></option>
             </select>
 
             <label for="amount">Deposit Amount:</label>
-            <input required id="amount" th:name="amount" class="amount" type="number" min="1" max="1000000000"
+            <input required id="amount" class="amount" type="text" min="1" max="1000000000"
                    name="amount"  placeholder="deposit amount" size="12">
 
             <div th:if="${loginError}" class="alert-warning">

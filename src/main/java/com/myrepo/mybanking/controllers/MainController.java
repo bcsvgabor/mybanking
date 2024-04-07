@@ -110,6 +110,36 @@ public class MainController {
         } else {
             throw new NotFoundException("User not found.");
         }
+    }
 
+    @PostMapping("/deposit")
+    public String deposit(@RequestParam(name = "username") String username,
+                         @RequestParam String accountName,
+                         @RequestParam(name = "amount") Integer amount,
+                         Model model){
+
+        Optional<BankUser> bankUser = bankUserService.findByUsername(username);
+        Optional<BankAccount> bankAccount = bankAccountService.findBankAccountByName(accountName);
+
+        if (bankUser.isPresent()) {
+
+            if(accountName.isBlank()){
+                model.addAttribute("loginError", "Fill out all the empty fields.");
+
+                return String.format("redirect:/deposit/?username=%s", username);
+            }
+
+            if(bankAccount.isPresent()){
+
+                bankAccountService.depositBankAccount(bankAccount.get(), amount);
+                return String.format("redirect:/?username=%s", username);
+            }
+            else {
+                throw new NotFoundException("Bank Account not found.");
+            }
+
+        } else {
+            throw new NotFoundException("User not found.");
+        }
     }
 }

@@ -41,5 +41,9 @@ public class BankAccount {
         this.accountName = accountName;
     }
 
+    public void depositAccount(Integer amount){
+        this.accountBalance += amount;
+    }
+
 }
 
