@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" >
+    <head>
+        <meta charset="UTF-8">
+        <title>myBanking</title>
+    </head>
+    <body>
+
+        <nav>
+            <a th:href="@{'/?username=' + ${bankUser.username}}">Home</a>
+            <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}">View Balance</a>
+            <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}">Withdraw</a>
+            <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}">Transfer</a>
+            <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}">Create Account</a>
+        </nav>
+
+        <h1>Deposit</h1>
+
+        <label>Deposit details:</label>
+
+        <form th:action="@{'/deposit'+ '?username=' + ${bankUser.username}}" method="post" th:object="${bankUser}">
+
+            <label for="bankAccount" >Bank Account</label>
+            <select class="" id="bankAccount" th:name="bankAccount">
+                <option value="">Select Bank Account</option>
+                <option th:each="account : *{bankAccountList}" th:value="${account}" th:text="${account.accountName}"></option>
+            </select>
+
+            <label for="amount">Deposit Amount:</label>
+            <input required id="amount" th:name="amount" class="amount" type="number" min="1" max="1000000000"
+                   name="amount"  placeholder="deposit amount" size="12">
+
+            <div th:if="${loginError}" class="alert-warning">
+                <p th:text="${loginError}" style="color: red;"></p>
+            </div>
+
+            <input type="submit" value="Confirm">
+        </form>
+
+    </body>
+</html>

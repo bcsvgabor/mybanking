@@ -7,6 +7,10 @@
     <body>
         <nav>
             <a th:href="@{'/?username=' + ${bankUser.username}}">Home</a>
+            <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}">Deposit</a>
+            <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}">Withdraw</a>
+            <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}">Transfer</a>
+            <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}">Create Account</a>
         </nav>
 
         <h1>Balance</h1>
