@@ -38,7 +38,7 @@ public class BankAccount {
         this.accountNumber = generator.generateNumber(id);
         this.accountBalance = 0;
         this.bankUser = bankUser;
-        this.accountName = "accountName";
+        this.accountName = accountName;
     }
 
 }

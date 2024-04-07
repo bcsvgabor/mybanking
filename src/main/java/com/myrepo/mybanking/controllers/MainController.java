@@ -49,6 +49,7 @@ public class MainController {
 
         if (bankUser.isPresent()) {
             model.addAttribute("bankUser", bankUser.get());
+            model.addAttribute("totalBalance", bankUserService.totalBalance(bankUser.get()));
             return "/balance";
         } else {
             throw new NotFoundException("User not found.");

@@ -17,4 +17,6 @@ public interface BankUserService {
     boolean validateHash(BankUser bankUser, String password);
 
     Integer numberOfAccounts(BankUser bankUser);
+
+    Integer totalBalance(BankUser bankUser);
 }

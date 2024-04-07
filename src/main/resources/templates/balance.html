@@ -29,7 +29,15 @@
                     <td th:text="${account.getAccountNumber()}" class="d-flex align-items-center"></td>
                     <td th:text="${account.getAccountBalance()}" class="d-flex align-items-center"></td>
                 </tr>
+
             </tbody>
+
+            <tfoot class="bg-light">
+                <tr>
+                    <td>Total Balance</td>
+                    <td th:text="${totalBalance}" class="d-flex align-items-center"></td>
+                </tr>
+            </tfoot>
         </table>
 
     </body>

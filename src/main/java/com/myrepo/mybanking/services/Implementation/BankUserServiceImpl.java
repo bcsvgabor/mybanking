@@ -1,6 +1,7 @@
 package com.myrepo.mybanking.services.Implementation;
 
 import com.myrepo.mybanking.exceptions.NotFoundException;
+import com.myrepo.mybanking.models.BankAccount;
 import com.myrepo.mybanking.models.BankUser;
 import com.myrepo.mybanking.repositories.BankUserRepository;
 import com.myrepo.mybanking.services.BankUserService;
@@ -71,6 +72,15 @@ public class BankUserServiceImpl implements BankUserService {
     public Integer numberOfAccounts(BankUser bankUser) {
 
         return bankUser.getBankAccountList().size();
+    }
+
+    @Override
+    public Integer totalBalance(BankUser bankUser) {
+        int total = 0;
+        for (BankAccount acc : bankUser.getBankAccountList()){
+            total += acc.getAccountBalance();
+        }
+        return total;
     }
 
 
