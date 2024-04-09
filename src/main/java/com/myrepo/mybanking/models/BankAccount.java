@@ -45,5 +45,9 @@ public class BankAccount {
         this.accountBalance += amount;
     }
 
+    public void withdrawAccount(Integer amount){
+        this.accountBalance -= amount;
+    }
+
 }
 

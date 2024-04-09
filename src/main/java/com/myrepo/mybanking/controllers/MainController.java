@@ -142,4 +142,56 @@ public class MainController {
             throw new NotFoundException("User not found.");
         }
     }
+
+    @GetMapping("/withdraw")
+    public String withdrawPage(@RequestParam(name = "username") String username, Model model){
+
+        Optional<BankUser> bankUser = bankUserService.findByUsername(username);
+
+        if (bankUser.isPresent()) {
+
+            model.addAttribute("bankUser", bankUser.get());
+
+            return "/withdraw";
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestParam(name = "username") String username,
+                          @RequestParam String accountName,
+                          @RequestParam(name = "amount") Integer amount,
+                          Model model){
+
+        Optional<BankUser> bankUser = bankUserService.findByUsername(username);
+        Optional<BankAccount> bankAccount = bankAccountService.findBankAccountByName(accountName);
+
+        if (bankUser.isPresent()) {
+
+            if(accountName.isBlank()){
+                model.addAttribute("withdrawError", "Fill out all the empty fields.");
+
+                return String.format("redirect:/withdraw/?username=%s", username);
+            }
+
+            if(bankAccount.isPresent()){
+
+                if (bankAccountService.balanceIsNotEnaugh(bankAccount.get(), amount)){
+                    model.addAttribute("withdrawError", "Account balance is not enaugh.");
+
+                    return String.format("redirect:/withdraw?username=%s", username);
+                }
+
+                bankAccountService.withdrawBankAccount(bankAccount.get(), amount);
+                return String.format("redirect:/?username=%s", username);
+            }
+            else {
+                throw new NotFoundException("Bank Account not found.");
+            }
+
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
 }

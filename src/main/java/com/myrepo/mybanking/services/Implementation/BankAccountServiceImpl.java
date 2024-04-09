@@ -30,7 +30,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         startBankAccount(bankUser, bankAccount);
     }
-    public void startBankAccount(BankUser bankUser, BankAccount bankAccount){
+
+    public void startBankAccount(BankUser bankUser, BankAccount bankAccount) {
         bankAccount.startAccount(bankUser);
 
         bankAccountRepository.save(bankAccount);
@@ -57,5 +58,26 @@ public class BankAccountServiceImpl implements BankAccountService {
     public Optional<BankAccount> findBankAccountByName(String accountName) {
         return bankAccountRepository.findBankAccountByAccountName(accountName);
     }
+
+    @Override
+    public String printBalance(BankAccount bankAccount) {
+
+        return String.format("%s account balance is: %d",
+                bankAccount.getAccountName(), bankAccount.getAccountBalance());
+    }
+
+    @Override
+    public boolean balanceIsNotEnaugh(BankAccount bankAccount, Integer amount) {
+
+        return bankAccount.getAccountBalance() < amount;
+    }
+
+    @Override
+    public void withdrawBankAccount(BankAccount bankAccount, Integer amount) {
+
+        bankAccount.withdrawAccount(amount);
+        bankAccountRepository.save(bankAccount);
+    }
+
 
 }

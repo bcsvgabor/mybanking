@@ -27,6 +27,10 @@
             <p th:text="${bankUser.getName()}" style="color: red;">Name</p>
         </div>
 
+        <div th:if="${loginError}" class="alert-warning">
+            <p th:text="${loginError}" >LoginError</p>
+        </div>
+
 <!--        <label for="userinfoAccounts">Number of Accounts</label>-->
 <!--        <div id="userinfoAccounts" class="userinfo">-->
 <!--            <p th:text="${numberOfAccounts}" style="color: red;">Number of Accounts</p>-->

@@ -17,4 +17,9 @@ public interface BankAccountService {
 
     Optional<BankAccount> findBankAccountByName(String accountName);
 
+    String printBalance(BankAccount bankAccount);
+
+    boolean balanceIsNotEnaugh(BankAccount bankAccount, Integer amount);
+
+    void withdrawBankAccount(BankAccount bankAccount, Integer amount);
 }
