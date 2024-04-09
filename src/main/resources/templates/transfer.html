@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" >
+<head>
+    <meta charset="UTF-8">
+    <title>myBanking</title>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{'/?username=' + ${bankUser.username}}">Home</a>
+    <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}">View Balance</a>
+    <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}">Withdraw</a>
+    <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}">Deposit</a>
+    <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}">Create Account</a>
+</nav>
+
+<h1>Transfer</h1>
+
+<label>Transfer details:</label>
+
+<form th:action="@{'/transfer'+ '?username=' + ${bankUser.username}}" method="post" th:object="${bankUser}">
+
+    <label for="bankAccount" >From:</label>
+    <select class="" id="bankAccount" name="fromAccount">
+        <option value="">Select transfer from</option>
+        <option th:each="account : *{bankAccountList}" th:value="${account.accountName}" th:text="${account.accountName}"></option>
+    </select>
+
+    <label for="bankAccount" >To:</label>
+    <select class="" id="bankAccount" name="toAccount">
+        <option value="">Select transfer to</option>
+        <option th:each="account : *{bankAccountList}" th:value="${account.accountName}" th:text="${account.accountName}"></option>
+    </select>
+
+    <label for="amount">Transfer Amount:</label>
+    <input required id="amount" class="amount" type="text" min="1" max="1000000000"
+           name="amount"  placeholder="Transfer amount" size="12">
+
+    <div th:if="${transferError}" class="alert-warning">
+        <p th:text="${transferError}" style="color: red;"></p>
+    </div>
+
+    <input type="submit" value="Transfer money">
+</form>
+
+</body>
+</html>

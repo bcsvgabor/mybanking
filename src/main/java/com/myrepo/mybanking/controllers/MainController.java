@@ -57,7 +57,7 @@ public class MainController {
     }
 
     @GetMapping("/create")
-    public String createPage(@RequestParam(name = "username") String username, Model model){
+    public String createPage(@RequestParam(name = "username") String username, Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
 
@@ -76,13 +76,13 @@ public class MainController {
     @PostMapping("/create")
     public String create(@RequestParam(name = "username") String username,
                          @ModelAttribute BankAccount bankAccount,
-                         Model model){
+                         Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
 
         if (bankUser.isPresent()) {
 
-            if(bankAccount.getAccountName().isBlank()){
+            if (bankAccount.getAccountName().isBlank()) {
                 model.addAttribute("loginError", "Fill out Account Name to create bank account.");
 
                 return String.format("redirect:/create/?username=%s", username);
@@ -98,7 +98,7 @@ public class MainController {
     }
 
     @GetMapping("/deposit")
-    public String depositPage(@RequestParam(name = "username") String username, Model model){
+    public String depositPage(@RequestParam(name = "username") String username, Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
 
@@ -114,27 +114,26 @@ public class MainController {
 
     @PostMapping("/deposit")
     public String deposit(@RequestParam(name = "username") String username,
-                         @RequestParam String accountName,
-                         @RequestParam(name = "amount") Integer amount,
-                         Model model){
+                          @RequestParam String accountName,
+                          @RequestParam(name = "amount") Integer amount,
+                          Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
         Optional<BankAccount> bankAccount = bankAccountService.findBankAccountByName(accountName);
 
         if (bankUser.isPresent()) {
 
-            if(accountName.isBlank()){
+            if (accountName.isBlank()) {
                 model.addAttribute("loginError", "Fill out all the empty fields.");
 
                 return String.format("redirect:/deposit/?username=%s", username);
             }
 
-            if(bankAccount.isPresent()){
+            if (bankAccount.isPresent()) {
 
                 bankAccountService.depositBankAccount(bankAccount.get(), amount);
                 return String.format("redirect:/?username=%s", username);
-            }
-            else {
+            } else {
                 throw new NotFoundException("Bank Account not found.");
             }
 
@@ -144,7 +143,7 @@ public class MainController {
     }
 
     @GetMapping("/withdraw")
-    public String withdrawPage(@RequestParam(name = "username") String username, Model model){
+    public String withdrawPage(@RequestParam(name = "username") String username, Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
 
@@ -160,24 +159,24 @@ public class MainController {
 
     @PostMapping("/withdraw")
     public String withdraw(@RequestParam(name = "username") String username,
-                          @RequestParam String accountName,
-                          @RequestParam(name = "amount") Integer amount,
-                          Model model){
+                           @RequestParam String accountName,
+                           @RequestParam(name = "amount") Integer amount,
+                           Model model) {
 
         Optional<BankUser> bankUser = bankUserService.findByUsername(username);
         Optional<BankAccount> bankAccount = bankAccountService.findBankAccountByName(accountName);
 
         if (bankUser.isPresent()) {
 
-            if(accountName.isBlank()){
+            if (accountName.isBlank() || amount == null) {
                 model.addAttribute("withdrawError", "Fill out all the empty fields.");
 
                 return String.format("redirect:/withdraw/?username=%s", username);
             }
 
-            if(bankAccount.isPresent()){
+            if (bankAccount.isPresent()) {
 
-                if (bankAccountService.balanceIsNotEnaugh(bankAccount.get(), amount)){
+                if (bankAccountService.balanceIsNotEnaugh(bankAccount.get(), amount)) {
                     model.addAttribute("withdrawError", "Account balance is not enaugh.");
 
                     return String.format("redirect:/withdraw?username=%s", username);
@@ -185,8 +184,60 @@ public class MainController {
 
                 bankAccountService.withdrawBankAccount(bankAccount.get(), amount);
                 return String.format("redirect:/?username=%s", username);
+            } else {
+                throw new NotFoundException("Bank Account not found.");
             }
-            else {
+
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    @GetMapping("/transfer")
+    public String transferPage(@RequestParam(name = "username") String username, Model model){
+
+        Optional<BankUser> bankUser = bankUserService.findByUsername(username);
+
+        if (bankUser.isPresent()) {
+
+            model.addAttribute("bankUser", bankUser.get());
+
+            return "/transfer";
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    @PostMapping("/transfer")
+    public String transfer(@RequestParam(name = "username") String username,
+                           @RequestParam String fromAccount,
+                           @RequestParam String toAccount,
+                           @RequestParam(name = "amount") Integer amount,
+                           Model model) {
+
+        Optional<BankUser> bankUser = bankUserService.findByUsername(username);
+        Optional<BankAccount> fromAcc = bankAccountService.findBankAccountByName(fromAccount);
+        Optional<BankAccount> toAcc = bankAccountService.findBankAccountByName(toAccount);
+
+        if (bankUser.isPresent()) {
+
+            if (fromAccount.isBlank() || toAccount.isBlank() || amount == null) {
+                model.addAttribute("transferError", "Fill out all the empty fields.");
+
+                return String.format("redirect:/transfer/?username=%s", username);
+            }
+
+            if (fromAcc.isPresent() & toAcc.isPresent()) {
+
+                if (bankAccountService.balanceIsNotEnaugh(fromAcc.get(), amount)) {
+                    model.addAttribute("transferError", "Account balance is not enaugh.");
+
+                    return String.format("redirect:/transfer?username=%s", username);
+                }
+
+                bankAccountService.transferMoney(fromAcc.get(), toAcc.get(), amount);
+                return String.format("redirect:/?username=%s", username);
+            } else {
                 throw new NotFoundException("Bank Account not found.");
             }
 

@@ -22,4 +22,6 @@ public interface BankAccountService {
     boolean balanceIsNotEnaugh(BankAccount bankAccount, Integer amount);
 
     void withdrawBankAccount(BankAccount bankAccount, Integer amount);
+
+    void transferMoney(BankAccount fromAccount, BankAccount toAccount, Integer amount);
 }

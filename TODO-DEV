@@ -1,1 +1,2 @@
 1, withdraw - show error when balance is not enaugh
+2, transfer - html form limit: if the amount is to high immediately alert!

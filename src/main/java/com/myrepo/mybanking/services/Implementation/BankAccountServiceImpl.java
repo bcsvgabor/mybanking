@@ -79,5 +79,12 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccountRepository.save(bankAccount);
     }
 
+    @Override
+    public void transferMoney(BankAccount fromAccount, BankAccount toAccount, Integer amount) {
+
+        withdrawBankAccount(fromAccount, amount);
+        depositBankAccount(toAccount, amount);
+    }
+
 
 }
