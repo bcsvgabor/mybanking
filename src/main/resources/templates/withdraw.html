@@ -9,13 +9,16 @@
     </head>
     <body>
 
-        <nav>
-            <a th:href="@{'/?username=' + ${bankUser.username}}">Home</a>
-            <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}">View Balance</a>
-            <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}">Deposit</a>
-            <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}">Transfer</a>
-            <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}">Create Account</a>
-        </nav>
+        <div class="container">
+            <nav class="nav nav-pills">
+                <a th:href="@{'/?username=' + ${bankUser.username}}" class="nav-item nav-link">Home</a>
+                <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">View Balance</a>
+                <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Deposit</a>
+                <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Withdraw</a>
+                <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Transfer</a>
+                <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Create Account</a>
+            </nav>
+        </div>
 
         <h1>Withdraw</h1>
 

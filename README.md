@@ -23,3 +23,11 @@ Close account
 
 The flow of Online Banking:
 ![img.png](img.png)
+
+The app is working! 
+
+Balance page
+![img_1.png](img_1.png)
+
+Withdraw page
+![img_2.png](img_2.png)

@@ -8,42 +8,68 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
     <body>
-        <nav>
-            <a href="/login">Login</a>
-        </nav>
-        <h1>Welcome to the Register page!</h1>
+        <div class="container-fluid py-1">
+            <nav class="nav nav-pills">
+                <a href="/login" class="nav-item nav-link">Login</a>
+            </nav>
+        </div>
+        <div class="container-fluid py-1">
+            <h1>Welcome to the Register page!</h1>
+        </div>
+        <div class="container-fluid pb-5">
+            <label>Create a new Account:</label>
+        </div>
 
-        <label>Create a new Account:</label>
+        <div>
+            <form th:action="@{/register}" method="post" th:object="${bankUser}">
 
-        <form th:action="@{/register}" method="post" th:object="${bankUser}">
+                <div class="container-fluid py-1">
+                    <label for="username" class="container-fluid">Username</label>
+                </div>
+                <div class="container-fluid py-1">
+                    <input required id="username" class="username" type="text"
+                           name="username"  placeholder="type your username" size="12"
+                           th:field="*{username}" >
+                </div>
 
-            <label for="username" >Username</label>
-            <input required id="username" class="username" type="text"
-                   name="username"  placeholder="type your username" size="12"
-                    th:field="*{username}" >
+                <div class="container-fluid py-1">
+                    <label for="name">First Name and Last Name</label>
+                </div>
+                <div class="container-fluid py-1">
+                    <input id="name" class="name" type="text"
+                           name="name"  placeholder="First and Last Name" size="12"
+                           th:field="*{name}">
+                </div>
 
-            <label for="name">First Name and Last Name</label>
-            <input id="name" class="name" type="text"
-                   name="name"  placeholder="First and Last Name" size="12"
-                   th:field="*{name}">
+                <div class="container-fluid py-1">
+                    <label for="password">Password</label>
+                </div>
+                <div class="container-fluid py-1">
+                    <input id="password" class="password" type="password"
+                           name="password"  placeholder="type your password" size="12"
+                           th:field="*{password}">
+                </div>
 
-            <label for="password">Password</label>
-            <input id="password" class="password" type="password"
-                   name="password"  placeholder="type your password" size="12"
-                   th:field="*{password}">
+                <div class="container-fluid py-1">
+                    <label for="confirmpassword">Confirm password</label>
+                </div>
+                <div class="container-fluid py-1">
+                    <input id="confirmpassword" class="confirmpassword" type="password"
+                           name="confirmpassword"  placeholder="confirm your password" size="12"
+                           th:field="*{confirmpassword}">
+                </div>
 
-            <label for="confirmpassword">Confirm password</label>
-            <input id="confirmpassword" class="confirmpassword" type="password"
-                   name="confirmpassword"  placeholder="confirm your password" size="12"
-            th:field="*{confirmpassword}">
+                <div th:if="${registerError}" class="alert-warning">
+                    <p th:text="${registerError}" style="color: red;"></p>
+                </div>
+                <div class="container-fluid py-1">
+                    <input type="submit" value="Register">
+
+                </div>
+            </form>
+        </div>
 
 
-            <div th:if="${registerError}" class="alert-warning">
-                <p th:text="${registerError}" style="color: red;"></p>
-            </div>
-
-            <input type="submit" value="Register">
-        </form>
         <!-- Bootstrap JS Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>

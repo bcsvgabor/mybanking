@@ -11,24 +11,33 @@
 
         <header>
             <h1>myBanking</h1>
-            <nav>
-                <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}">View Balance</a>
-                <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}">Deposit</a>
-                <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}">Withdraw</a>
-                <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}">Transfer</a>
-                <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}">Create Account</a>
-            </nav>
+
+            <div class="container">
+                <nav class="nav nav-pills">
+                    <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">View Balance</a>
+                    <a th:href="@{'/deposit'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Deposit</a>
+                    <a th:href="@{'/withdraw'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Withdraw</a>
+                    <a th:href="@{'/transfer'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Transfer</a>
+                    <a th:href="@{'/create'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">Create Account</a>
+                </nav>
+            </div>
+
         </header>
 
-        <label for="userinfoUsername">Username</label>
-        <div id="userinfoUsername" class="userinfoUsername">
-            <p th:text="${bankUser.getUsername()}" style="color: red;">Username</p>
+        <div class="container-fluid py-2">
+            <label for="userinfoUsername">Username:</label>
+            <div id="userinfoUsername" class="userinfoUsername">
+                <p th:text="${bankUser.getUsername()}" style="color: red;">Username</p>
+            </div>
         </div>
 
-        <label for="userinfoName">Name</label>
-        <div id="userinfoName" class="userinfoName">
-            <p th:text="${bankUser.getName()}" style="color: red;">Name</p>
+        <div class="container-fluid py-2">
+            <label for="userinfoName">Name:</label>
+            <div id="userinfoName" class="userinfoName">
+                <p th:text="${bankUser.getName()}" style="color: red;">Name</p>
+            </div>
         </div>
+
 
         <div th:if="${loginError}" class="alert-warning">
             <p th:text="${loginError}" >LoginError</p>
