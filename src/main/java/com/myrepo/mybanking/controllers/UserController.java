@@ -81,10 +81,10 @@ public class UserController {
             return "/register";
         }
 
-//        if (!PasswordValidatorUtil.isProdPasswordValid(bankUser.getPassword())) {
-//            model.addAttribute("registerError", "Passwords is too weak.");
-//            return "/register";
-//        }
+        if (!PasswordValidatorUtil.isProdPasswordValid(bankUser.getPassword())) {
+            model.addAttribute("registerError", "Passwords is too weak.");
+            return "/register";
+        }
 
         bankUserService.hashBankUserPassword(bankUser);
         bankAccountService.setupBankAccount(bankUser);
