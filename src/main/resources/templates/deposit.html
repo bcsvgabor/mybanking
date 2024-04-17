@@ -9,7 +9,7 @@
     </head>
     <body>
 
-        <div class="container">
+        <div class="container-fluid">
             <nav class="nav nav-pills">
                 <a th:href="@{'/?username=' + ${bankUser.username}}" class="nav-item nav-link">Home</a>
                 <a th:href="@{'/balance'+ '?username=' + ${bankUser.username}}" class="nav-item nav-link">View Balance</a>
@@ -20,27 +20,41 @@
             </nav>
         </div>
 
-        <h1>Deposit</h1>
+        <div class="container-fluid py-1">
+            <h1>Deposit</h1>
 
-        <label>Deposit details:</label>
+            <label>Deposit details:</label>
+        </div>
+
 
         <form th:action="@{'/deposit'+ '?username=' + ${bankUser.username}}" method="post" th:object="${bankUser}">
 
-            <label for="bankAccount" >Bank Account</label>
-            <select class="" id="bankAccount" name="accountName">
-                <option value="">Select Bank Account</option>
-                <option th:each="account : *{bankAccountList}" th:value="${account.accountName}" th:text="${account.accountName}"></option>
-            </select>
+            <div class="container-fluid py-1">
+                <label for="bankAccount" >Bank Account</label>
+            </div>
+            <div class="container-fluid py-1">
+                <select class="" id="bankAccount" name="accountName">
+                    <option value="">Select Bank Account</option>
+                    <option th:each="account : *{bankAccountList}" th:value="${account.accountName}" th:text="${account.accountName}"></option>
+                </select>
+            </div>
 
-            <label for="amount">Deposit Amount:</label>
-            <input required id="amount" class="amount" type="text" min="1" max="1000000000"
-                   name="amount"  placeholder="deposit amount" size="12">
+            <div class="container-fluid py-1">
+                <label for="amount">Deposit Amount:</label>
+            </div>
+            <div class="container-fluid py-1">
+                <input required id="amount" class="amount" type="text" min="1" max="1000000000"
+                       name="amount"  placeholder="deposit amount" size="12">
+            </div>
 
             <div th:if="${loginError}" class="alert-warning">
                 <p th:text="${loginError}" style="color: red;"></p>
             </div>
 
-            <input type="submit" value="Deposit money">
+            <div class="container-fluid py-3">
+                <input type="submit" value="Deposit money">
+            </div>
+
         </form>
         <!-- Bootstrap JS Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
