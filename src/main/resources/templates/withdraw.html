@@ -26,8 +26,6 @@
             <label>Withdraw details:</label>
         </div>
 
-
-
         <form th:action="@{'/withdraw'+ '?username=' + ${bankUser.username}}" method="post" th:object="${bankUser}">
 
             <div class="container-fluid py-1">
